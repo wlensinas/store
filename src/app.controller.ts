@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+//import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -26,13 +27,33 @@ export class AppController {
   //   return `product ${params.productId}`;
   // }
 
-  @Get('products/:productId')
-  getProduct(@Param('productId') productId: string) {
-    return `product ${productId}`;
-  }
+  // @Get('products/:productId')
+  // getProduct(@Param('productId') productId: string) {
+  //   return `product ${productId}`;
+  // }
 
-  @Get('categories/:id/products/:productId')
-  getCategory(@Param('id') id: string, @Param('productId') productId: string) {
-    return `product ${productId} and category ${id}`;
+  // @Get('categories/:id/products/:productId')
+  // getCategory(@Param('id') id: string, @Param('productId') productId: string) {
+  //   return `product ${productId} and category ${id}`;
+  // }
+
+  // Forma de declarar query sin asignacion previa
+  // @Get('products')
+  // getProduct(
+  //   @Query('limit') limit: number,
+  //   @Query('offset') offset: number,
+  //   @Query('brand') brand: string,
+  // ) {
+  //   return `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`;
+  // }
+
+  //query con asignacion previa
+  @Get('products')
+  getProduct(
+    @Query('limit') limit = 100,
+    @Query('offset') offset = 25,
+    @Query('brand') brand: string,
+  ) {
+    return `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`;
   }
 }
