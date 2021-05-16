@@ -41,18 +41,28 @@ export class ProductService {
   }
 
   update(id: number, payload: any) {
-    const productFound = this.products.findIndex((item) => item.id === id);
-    let message = '';
-    if (productFound > 0) {
-      this.products[productFound] = {
-        id: id,
+    // const productFound = this.products.findIndex((item) => item.id === id);
+    // let message = '';
+    // if (productFound > 0) {
+    //   this.products[productFound] = {
+    //     id: id,
+    //     ...payload,
+    //   };
+    //   message = 'Product updated';
+    // } else {
+    //   message = 'Product not found';
+    // }
+    // return message;
+    const product = this.findOne(id);
+    if (product) {
+      const index = this.products.findIndex((item) => item.id === id);
+      this.products[index] = {
+        ...product,
         ...payload,
       };
-      message = 'Product updated';
-    } else {
-      message = 'Product not found';
+      return this.products[index];
     }
-    return message;
+    return null;
   }
 
   delete(id: number) {
