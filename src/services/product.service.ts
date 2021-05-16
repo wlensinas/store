@@ -39,4 +39,31 @@ export class ProductService {
     this.products.push(newProduct);
     return newProduct;
   }
+
+  update(id: number, payload: any) {
+    const productFound = this.products.findIndex((item) => item.id === id);
+    let message = '';
+    if (productFound > 0) {
+      this.products[productFound] = {
+        id: id,
+        ...payload,
+      };
+      message = 'Product updated';
+    } else {
+      message = 'Product not found';
+    }
+    return message;
+  }
+
+  delete(id: number) {
+    const productFound = this.products.findIndex((item) => item.id === id);
+    let message = '';
+    if (productFound > 0) {
+      this.products.splice(productFound, 1);
+      message = 'product deleted';
+    } else {
+      message = 'product not found';
+    }
+    return message;
+  }
 }
