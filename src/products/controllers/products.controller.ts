@@ -13,7 +13,7 @@ import {
 
 import { ProductService } from '../services/product.service';
 
-import { ParseIntPipe } from '../common/parse-int.pipe';
+import { ParseIntPipe } from '../../common/parse-int.pipe';
 
 import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
 
@@ -26,7 +26,7 @@ export class ProductsController {
     @Query('offset') offset = 25,
     @Query('brand') brand: string,
   ) {
-    return this.productService.findAll();
+    return this.productService.findAll(limit, offset, brand);
   }
 
   @Get('filter')
