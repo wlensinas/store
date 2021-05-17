@@ -9,29 +9,23 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
-  Res,
-  //ParseIntPipe,
 } from '@nestjs/common';
-
-import { Response } from 'express';
 
 import { ProductService } from '../services/product.service';
 
 import { ParseIntPipe } from '../common/parse-int.pipe';
+
+import { CreateProductDto, UpdateProductDto } from '../dtos/products.dto';
+
 @Controller('products')
 export class ProductsController {
   constructor(private productService: ProductService) {}
-  //query con asignacion previa
   @Get()
   getProducts(
     @Query('limit') limit = 100,
     @Query('offset') offset = 25,
     @Query('brand') brand: string,
   ) {
-    // return {
-    //   message: `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
-    // };
-
     return this.productService.findAll();
   }
 
@@ -48,31 +42,13 @@ export class ProductsController {
     return this.productService.findOne(productId);
   }
 
-  // aplicando any para el parametro
   @Post()
-  create(@Body() payload: any) {
-    // return {
-    //   message: `accion de crear`,
-    //   payload,
-    // };
+  create(@Body() payload: CreateProductDto) {
     return this.productService.create(payload);
   }
 
-  // aplicando declaracion uno a uno los parametros
-  // @Post()
-  // create(@Body('price') price: number) {
-  //   return {
-  //     message: `accion de crear`,
-  //     price,
-  //   };
-  // }
-
   @Put(':id')
-  update(@Param('id') id: string, @Body() payload: any) {
-    // return {
-    //   id,
-    //   payload,
-    // };
+  update(@Param('id') id: string, @Body() payload: UpdateProductDto) {
     return this.productService.update(+id, payload);
   }
 
