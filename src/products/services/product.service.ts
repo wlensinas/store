@@ -15,7 +15,7 @@ export class ProductService {
     },
   ];
 
-  findAll(limit: number, offset: number, brand: string) {
+  findAll(limit?: number, offset?: number, brand?: string) {
     limit = 1;
     offset = 2;
     this.products.find((item) => item.description == brand);
